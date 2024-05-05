@@ -25,13 +25,13 @@ class HomeController extends GetxController{
     date = null;
     update();
   }
+
   Completer<GoogleMapController> controller = Completer();
 
   Future<void> animateCamera(LatLng location) async {
     final GoogleMapController controller = await this.controller.future;
     CameraPosition cameraPosition = CameraPosition(
       bearing: 0,
-
       target: location,
       zoom: 17.00,
     );

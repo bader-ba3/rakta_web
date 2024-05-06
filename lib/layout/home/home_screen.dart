@@ -8,6 +8,7 @@ import 'package:rakta_web/controller/home_controller.dart';
 import 'package:rakta_web/layout/bus_booking/bus_booking_screen.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../../utils/hive.dart';
 import '../taxi_booking/taxi_booking_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -287,7 +288,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           decoration: BoxDecoration(color: Colors.orange, borderRadius: BorderRadius.circular(10)),
                           child: InkWell(
                             onTap: () {
-                              if (controller.from != null && controller.to != null && controller.date != null) {
+                              print(HiveDataBase.getUserData().name);
+                              print(HiveDataBase.getUserData().name != "null");
+                              print(controller.from != null && controller.to != null && controller.date != null&&HiveDataBase.getUserData().name != "null");
+                              if (controller.from != null && controller.to != null && controller.date != null&&HiveDataBase.getUserData().name != "null") {
                                 if (controller.busPosition == 4) {
                                   Get.to(BusBookingScreen());
                                 } else {

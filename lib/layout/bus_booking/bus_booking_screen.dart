@@ -11,6 +11,7 @@ import 'package:maps_curved_line/maps_curved_line.dart';
 import 'package:rakta_web/controller/home_controller.dart';
 import 'package:rakta_web/layout/home_page/home_page_screen.dart';
 
+import '../../utils/hive.dart';
 import '../../utils/utils.dart';
 import '../choose_seat/choose_seat_screen.dart';
 import '../taxi_booking/taxi_booking_screen.dart';
@@ -245,7 +246,7 @@ class _BusBookingScreenState extends State<BusBookingScreen> {
                                           color: Colors.white,
                                         ),
                                         Text(
-                                          "Search",
+                                          "Searchh",
                                           style: TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
                                         ),
                                       ],

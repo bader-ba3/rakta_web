@@ -1,6 +1,11 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 abstract class Const {
+  static const tripStatusSearchDriver = "tripStatusSearchDriver";
+  static const tripStatusWaitingDriver = "tripStatusWaitingDriver";
+  static const tripStatusTripStarted = "tripStatusTripStarted";
+  static const tripStatusTripPaying = "tripStatusTripPaying";
+
   static const List rakSharjah = [
     LatLng( 25.7351723,55.8894507),
     LatLng( 25.7258256,55.7058549),

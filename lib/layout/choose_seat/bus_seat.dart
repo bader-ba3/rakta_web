@@ -76,7 +76,7 @@ class _BusSeatState extends State<BusSeat> {
                                                       ? "assets/images/green.svg"
                                                       : picked.contains(index)
                                                       ? "assets/images/blue.svg"
-                                                      : "assets/images/white.svg"),
+                                                      : "assets/images/white.svg",width: 75,),
                                                   Text(index.toString())
                                                 ],
                                               ))),
@@ -119,7 +119,7 @@ class _BusSeatState extends State<BusSeat> {
                                                       ? "assets/images/green.svg"
                                                       : picked.contains(index)
                                                       ? "assets/images/blue.svg"
-                                                      : "assets/images/white.svg"),
+                                                      : "assets/images/white.svg",width: 75,),
                                                   Text(index.toString())
                                                 ],
                                               ))),
@@ -159,7 +159,7 @@ class _BusSeatState extends State<BusSeat> {
                                                       ? "assets/images/green.svg"
                                                       : picked.contains(47)
                                                       ? "assets/images/blue.svg"
-                                                      : "assets/images/white.svg"),
+                                                      : "assets/images/white.svg",width: 75,),
                                                   Text("47")
                                                 ],
                                               ))),
@@ -195,7 +195,7 @@ class _BusSeatState extends State<BusSeat> {
                                                     ? "assets/images/green.svg"
                                                     : picked.contains(index)
                                                     ? "assets/images/blue.svg"
-                                                    : "assets/images/white.svg"),
+                                                    : "assets/images/white.svg",width: 75,),
                                                 Text(index.toString())
                                               ],
                                             ))),
@@ -233,7 +233,7 @@ class _BusSeatState extends State<BusSeat> {
                                                     ? "assets/images/green.svg"
                                                     : picked.contains(index)
                                                     ? "assets/images/blue.svg"
-                                                    : "assets/images/white.svg"),
+                                                    : "assets/images/white.svg",width: 75,),
                                                 Text(index.toString())
                                               ],
                                             ))),

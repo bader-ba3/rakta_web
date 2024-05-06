@@ -55,6 +55,10 @@ dependencies:
   showcaseview:
   flutter_compass:
   maps_curved_line:
+  url_strategy:
+  hive_flutter:
+  firebase_core:
+  cloud_firestore:
 
 dev_dependencies:
   flutter_test:

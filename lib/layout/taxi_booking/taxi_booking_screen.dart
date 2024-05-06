@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -7,6 +11,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_curved_line/maps_curved_line.dart';
 import 'package:rakta_web/controller/home_controller.dart';
 
+import '../../const/const.dart';
+import '../../const/route.dart';
+import '../../utils/hive.dart';
 import '../../utils/utils.dart';
 import '../choose_seat/choose_seat_screen.dart';
 
@@ -27,7 +34,7 @@ class _TaxiBookingScreenState extends State<TaxiBookingScreen> {
   String text = "";
   Set<Marker> marker={};
   Set<Polyline> polyline={};
-
+  bool isFound = false;
   @override
   void initState() {
     HomeController homeController = Get.find<HomeController>();
@@ -36,11 +43,34 @@ class _TaxiBookingScreenState extends State<TaxiBookingScreen> {
     date = widget.date;
     dateTime = DateTime.parse(widget.date);
     text = "Searching for Taxi....";
+
     if(widget.date == DateTime.now().toString().split(" ")[0]){
-      Future.delayed(Duration(seconds: 5)).then((value) {
-        text ="Taxi Founded \n Driver Will Rich you soon";
-        setState(() {});
+      FirebaseFirestore.instance.collection("Orders").doc("0").set({
+        "userName":HiveDataBase.getUserData().name,
+        "userNumber":HiveDataBase.getUserData().mobile,
+        // "fromLatLng":{"lat":homeViewModel.userPosition!.latitude,"lng":homeViewModel.userPosition!.longitude},
+        "toLatLng": {"lat":homeController.toLatLng!.latitude,"lng":homeController.toLatLng!.longitude},
+        "fromLatLng": {"lat":homeController.fromLatLng!.latitude,"lng":homeController.fromLatLng!.longitude},
+        "fromAddress": from,
+        "toAddress":to,
+        "status":Const.tripStatusSearchDriver,
+        "ploy":[],
+      },SetOptions(merge: true));
+      FirebaseFirestore.instance.collection("Orders").doc("0").snapshots().listen((event) {
+        if(event.data()==null){
+          Get.offAllNamed(Routes.home);
+        }
+        if(event.data()!['status'] != Const.tripStatusSearchDriver){
+          text ="Taxi Founded \n Driver Will Rich you soon";
+          isFound=true;
+          setState(() {});
+        }
+
       });
+      // Future.delayed(Duration(seconds: 5)).then((value) {
+      //   text ="Taxi Founded \n Driver Will Rich you soon";
+      //   setState(() {});
+      // });
     }else{
       text ="Trip is Schedule on "+widget.date;
     }
@@ -63,14 +93,15 @@ class _TaxiBookingScreenState extends State<TaxiBookingScreen> {
       marker.add(newMarker);
       setState(() {});
     });
-    // homeController.drawPolyline(homeController.fromLatLng!,homeController.toLatLng!,"a").then((value) {
-    //   polyline.add(value);
-    //   setState(() {});
-    // });
+
     super.initState();
 
   }
-
+  @override
+  void dispose() {
+    isFound=false;
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,13 +146,14 @@ class _TaxiBookingScreenState extends State<TaxiBookingScreen> {
                       zoomControlsEnabled: false,
                       zoomGesturesEnabled: false,
                       mapToolbarEnabled: false,
-                      initialCameraPosition: CameraPosition(target:controller.fromLatLng!,zoom: 14),
+                      initialCameraPosition: CameraPosition(target:controller.fromLatLng!,zoom: 16),
                     ),
                   ),
                 ),
               ),
               Column(
                 children: [
+                  SizedBox(height: 10,),
                   Center(
                     child: Hero(
                       tag: "bus-settings",
@@ -483,7 +515,7 @@ class _TaxiBookingScreenState extends State<TaxiBookingScreen> {
                         decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(15)),
                         child: Center(child: Text(text,textAlign: TextAlign.center,style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),))),
                   ),
-          Spacer(),
+                   Spacer(),
                   if(widget.date == DateTime.now().toString().split(" ")[0])
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -491,7 +523,10 @@ class _TaxiBookingScreenState extends State<TaxiBookingScreen> {
 
                         padding: EdgeInsets.all(8),
                         decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(100)),
-                        child:  Gif(image: AssetImage("assets/images/check.gif"),autostart: Autostart.once,width: 100,height: 100,),)),
+                        child:  isFound
+                        ?Gif(image: AssetImage("assets/images/check.gif"),autostart: Autostart.once,width: 100,height: 100,)
+                            :Gif(image: AssetImage("assets/images/checkLoading.gif"),autostart: Autostart.loop,width: 100,height: 100,)
+                      ,)),
 
 
                   if(widget.date == DateTime.now().toString().split(" ")[0])

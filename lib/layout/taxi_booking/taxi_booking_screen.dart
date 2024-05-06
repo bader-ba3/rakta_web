@@ -61,7 +61,7 @@ class _TaxiBookingScreenState extends State<TaxiBookingScreen> {
           Get.offAllNamed(Routes.home);
         }
         if(event.data()!['status'] != Const.tripStatusSearchDriver){
-          text ="Taxi Founded \n Driver Will Rich you soon";
+          text ="Taxi Founded \n Driver will reach you soon";
           isFound=true;
           setState(() {});
         }

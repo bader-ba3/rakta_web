@@ -363,7 +363,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Pick Date of Your trip"),
+                      Text("Choose your starting location"),
                       SizedBox(
                         height: 25,
                       ),
@@ -622,7 +622,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Pick Date of Your trip"),
+                        Text("Choose your drop off location"),
                         SizedBox(
                           height: 25,
                         ),

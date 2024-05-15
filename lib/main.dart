@@ -21,10 +21,8 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       initialRoute:  Routes.home,
       getPages: [
@@ -32,7 +30,8 @@ class MyApp extends StatelessWidget {
           name: Routes.login,
           page: () { return AuthScreen(); },
         ),
-        GetPage(
+//          page: () { return BusTicket(model: BusTicketModel(status:true,from: "widget.from",to: "widget.to", seatNumber:[12,12,12] ),); },
+    GetPage(
           name: Routes.home,
           page: () { return HomePageScreen(); },
         ),

@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:rakta_web/layout/choose_seat/bus_seat.dart';
 
+import '../../model.dart';
+import '../../payment.dart';
 import '../home_page/home_page_screen.dart';
 
 class ChooseSeatScreen extends StatefulWidget {
@@ -116,15 +119,21 @@ class _ChooseSeatScreenState extends State<ChooseSeatScreen> {
             ],
           ),
           Spacer(),
+          //
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                height: 100,
-                width: 400,
-                decoration: BoxDecoration(color: Colors.blue,borderRadius: BorderRadius.circular(20)),
-                child: Center(
-                  child: Text("Confrim Booking",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white),),
+              InkWell(
+                onTap: (){
+                  Get.to(BusTicket(model: BusTicketModel(status:true,from: widget.from,to: widget.to, seatNumber:seats ),));
+                },
+                child: Container(
+                  height: 100,
+                  width: 400,
+                  decoration: BoxDecoration(color: Colors.blue,borderRadius: BorderRadius.circular(20)),
+                  child: Center(
+                    child: Text("Confrim Booking",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white),),
+                  ),
                 ),
               )
             ],

@@ -61,6 +61,7 @@ dependencies:
   cloud_firestore:
   syncfusion_flutter_barcodes:
   share_plus:
+  mime:
 
 dev_dependencies:
   flutter_test:

@@ -20,8 +20,8 @@ class CheckLogin extends StatefulWidget {
 }
 
 class _CheckLoginState extends State<CheckLogin> {
-  // String  redirectLink = "https://ba3.co/rakta/check-login";
-  String redirectLink = "http://localhost:54668/rakta";
+  String  redirectLink = "https://ba3.co/rakta";
+  // String redirectLink = "http://localhost:55869/rakta";
 
   @override
   void initState() {

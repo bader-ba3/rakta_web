@@ -47,8 +47,8 @@ class AppBarWidget extends StatelessWidget {
             if (HiveDataBase.getUserData().name == "null")
               InkWell(
                 onTap: () {
-                  // String redirectLink = "https://ba3.co/rakta";
-                  String redirectLink = "http://localhost:54668/rakta";
+                  String redirectLink = "https://ba3.co/rakta";
+                  // String redirectLink = "http://localhost:55869/rakta";
                   launchUrl(
                     Uri.parse(
                         "https://stg-id.uaepass.ae/idshub/authorize?redirect_uri=${redirectLink}&client_id=sandbox_stage&response_type=code&state=a&scope=urn:uae:digitalid:profile:general urn:uae:digitalid:profile:general:profileType urn:uae:digitalid:profile:general:unifiedId&acr_values=urn:safelayer:tws:policies:authentication:level:low"),

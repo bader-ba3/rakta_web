@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Center(
                 child: SizedBox(
-              height: 340,
+              height: 330,
               width: MediaQuery.sizeOf(context).width,
               child: Stack(
                 children: [
@@ -371,7 +371,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 50),
+            SizedBox(height: 20),
           ],
         );
       }),

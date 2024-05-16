@@ -14,8 +14,8 @@ class UAEPass extends StatefulWidget {
 
 class _UAEPassState extends State<UAEPass> with SingleTickerProviderStateMixin {
 String? data;
-String redirectLink = "http://localhost:54668/rakta";
-//   String  redirectLink = "https://ba3.co/rakta";
+// String redirectLink = "http://localhost:55869/rakta";
+  String  redirectLink = "https://ba3.co/rakta";
 
 
   getData(code){

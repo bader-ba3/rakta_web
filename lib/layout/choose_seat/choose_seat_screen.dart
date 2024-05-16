@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:rakta_web/layout/choose_seat/bus_seat.dart';
 
-import '../../model.dart';
-import '../../payment.dart';
+import '../bus_ticket/model.dart';
+import '../bus_ticket/payment.dart';
 import '../home_page/home_page_screen.dart';
 
 class ChooseSeatScreen extends StatefulWidget {

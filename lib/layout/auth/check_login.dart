@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 
 import '../../const/route.dart';
 import '../../utils/hive.dart';
+import '../home_page/home_page_screen.dart';
 
 class CheckLogin extends StatefulWidget {
   const CheckLogin({super.key});
@@ -19,13 +20,17 @@ class CheckLogin extends StatefulWidget {
 }
 
 class _CheckLoginState extends State<CheckLogin> {
-  String  redirectLink = "http://localhost:"+window.location.port+"/check-login";
+  // String  redirectLink = "https://ba3.co/rakta/check-login";
+  String redirectLink = "http://localhost:54668/rakta";
 
   @override
   void initState() {
-    print(Get.parameters['code']);
-    if(Get.parameters['code']!=null){
-      getData(Get.parameters['code']);
+    print(Uri.base.queryParameters);
+    print(Uri.base.queryParameters);
+    print(Uri.base.queryParameters['code']);
+    print("param "+Uri.base.queryParameters['code'].toString());
+    if(Uri.base.queryParameters['code']!=null){
+      getData(Uri.base.queryParameters['code']);
     }
     super.initState();
   }
@@ -52,7 +57,7 @@ String data ="";
           var mobile = json.decode(value.body)['mobile'];
           var email = json.decode(value.body)['email'];
           await HiveDataBase.setUserData((name: name,email: email,gender: gender,mobile: mobile));
-          Get.offAllNamed(Routes.home);
+          Get.offAll(()=>HomePageScreen());
         });
       });
     }

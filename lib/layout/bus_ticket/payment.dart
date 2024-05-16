@@ -1,19 +1,22 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rakta_web/ticket_widget.dart';
-import 'package:rakta_web/to_image.dart';
+import 'package:rakta_web/layout/bus_ticket/ticket_widget.dart';
+import 'package:rakta_web/layout/bus_ticket/to_image.dart';
 import 'package:rakta_web/utils/hive.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 import 'dart:html' as html;
-import 'const/route.dart';
-import 'model.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:mime/mime.dart';
 import 'package:http_parser/http_parser.dart';
+
+import '../../const/route.dart';
+import '../home_page/home_page_screen.dart';
+import 'model.dart';
 
 class BusTicket extends StatelessWidget {
   final BusTicketModel model ;
@@ -30,7 +33,7 @@ class BusTicket extends StatelessWidget {
         actions: [
           InkWell(
             onTap: (){
-              Get.offAllNamed(Routes.home);
+              Get.offAll(()=>HomePageScreen());
             },
             child: Row(
               children: [
@@ -213,7 +216,9 @@ class BusTicket extends StatelessWidget {
                           onTap: () async {
                               Uint8List imageData = await Utils.capture(widgetKey);
                               final String url = 'https://graph.facebook.com/v19.0/190767744131124/media';
-                              final String token = 'EABkHbZCvVgEABOyCNG3UJQZCLIITZA7qYwv5W4pBts7zTal6BNUJfhkWEyEFN7ZCnPpqhSIb0BzIxcd8NlJgVPMnfZBCXAYJcYEPF84XN3YLjS8GEuOs0u3wsLCfK7823sUwaikW6XnVokmfQ0az8eKHyC0r03k5ZAtgcZBZAye8gs5dwhhAUZC0hFhc0EeD4OQ6VfvrqLsj79OcxO5aAsxMV4TcyNNnDkZCtyNcL2y94bMR4ZD';
+                              var data = await FirebaseFirestore.instance.collection("whatsapp").doc("0").get();
+                              var token = data['token'];
+                              // final String token = 'EABkHbZCvVgEABOyCNG3UJQZCLIITZA7qYwv5W4pBts7zTal6BNUJfhkWEyEFN7ZCnPpqhSIb0BzIxcd8NlJgVPMnfZBCXAYJcYEPF84XN3YLjS8GEuOs0u3wsLCfK7823sUwaikW6XnVokmfQ0az8eKHyC0r03k5ZAtgcZBZAye8gs5dwhhAUZC0hFhc0EeD4OQ6VfvrqLsj79OcxO5aAsxMV4TcyNNnDkZCtyNcL2y94bMR4ZD';
 
                               // Detect the mime type of the image data
                               final mimeType = lookupMimeType('', headerBytes: imageData);
@@ -239,7 +244,7 @@ class BusTicket extends StatelessWidget {
                                   var responseBody = await response.stream.bytesToString();
                                   print(responseBody);
                                   print(json.decode(responseBody)['id']);
-                                  sendMessage(json.decode(responseBody)['id']);
+                                  sendMessage(json.decode(responseBody)['id'],token);
                                 } else {
                                   print('Failed to upload image: ${response.statusCode}');
                                   var responseBody = await response.stream.bytesToString();
@@ -280,9 +285,9 @@ class BusTicket extends StatelessWidget {
     );
   }
 
-  Future<void> sendMessage(String imageId) async {
+  Future<void> sendMessage(String imageId,token) async {
     final String url = 'https://graph.facebook.com/v19.0/190767744131124/messages';
-    final String token = 'EABkHbZCvVgEABOyCNG3UJQZCLIITZA7qYwv5W4pBts7zTal6BNUJfhkWEyEFN7ZCnPpqhSIb0BzIxcd8NlJgVPMnfZBCXAYJcYEPF84XN3YLjS8GEuOs0u3wsLCfK7823sUwaikW6XnVokmfQ0az8eKHyC0r03k5ZAtgcZBZAye8gs5dwhhAUZC0hFhc0EeD4OQ6VfvrqLsj79OcxO5aAsxMV4TcyNNnDkZCtyNcL2y94bMR4ZD';
+    // final String token = 'EABkHbZCvVgEABOyCNG3UJQZCLIITZA7qYwv5W4pBts7zTal6BNUJfhkWEyEFN7ZCnPpqhSIb0BzIxcd8NlJgVPMnfZBCXAYJcYEPF84XN3YLjS8GEuOs0u3wsLCfK7823sUwaikW6XnVokmfQ0az8eKHyC0r03k5ZAtgcZBZAye8gs5dwhhAUZC0hFhc0EeD4OQ6VfvrqLsj79OcxO5aAsxMV4TcyNNnDkZCtyNcL2y94bMR4ZD';
 
     final Map<String, dynamic> requestBody = {
       "messaging_product": "whatsapp",

@@ -38,7 +38,7 @@ class AppBarWidget extends StatelessWidget {
               controller.changeToTaxi();
             }),
             appBarItem("Application", () {
-              controller.scrollController.animateTo(duration: Duration(milliseconds: 300), curve: Curves.linear, MediaQuery.sizeOf(context).height - 150);
+              controller.scrollController.animateTo(duration: Duration(milliseconds: 300), curve: Curves.linear, MediaQuery.sizeOf(context).height - 100);
             }),
             appBarItem("About", () {
               controller.scrollController.animateTo(duration: Duration(milliseconds: 300), curve: Curves.linear, MediaQuery.sizeOf(context).height + 200);
@@ -47,7 +47,8 @@ class AppBarWidget extends StatelessWidget {
             if (HiveDataBase.getUserData().name == "null")
               InkWell(
                 onTap: () {
-                  String redirectLink = "http://localhost:" + window.location.port + "/check-login";
+                  // String redirectLink = "https://ba3.co/rakta";
+                  String redirectLink = "http://localhost:54668/rakta";
                   launchUrl(
                     Uri.parse(
                         "https://stg-id.uaepass.ae/idshub/authorize?redirect_uri=${redirectLink}&client_id=sandbox_stage&response_type=code&state=a&scope=urn:uae:digitalid:profile:general urn:uae:digitalid:profile:general:profileType urn:uae:digitalid:profile:general:unifiedId&acr_values=urn:safelayer:tws:policies:authentication:level:low"),

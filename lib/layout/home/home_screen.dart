@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List countryList = ["Abu Dhabi", "Dubai", 'Sharjah', 'Ajman', "Umm Al Quwain", "Ras Al Khaimah", "Fujairah"];
   late Position position;
+  double? initX;
   @override
   void initState() {
     super.initState();
@@ -47,13 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Center(
                 child: SizedBox(
-              height: 350,
+              height: 340,
               width: MediaQuery.sizeOf(context).width,
               child: Stack(
                 children: [
                   AnimatedPositioned(
                     width: MediaQuery.sizeOf(context).width / 4,
-                    top: MediaQuery.sizeOf(context).width / 14,
+                    top: MediaQuery.sizeOf(context).width / 12,
                     // right: MediaQuery.sizeOf(context).width/4,
                     right: MediaQuery.sizeOf(context).width / controller.carPosition,
                     duration: Duration(milliseconds: 300),
@@ -83,7 +85,54 @@ class _HomeScreenState extends State<HomeScreen> {
                           "assets/images/bus.png",
                           fit: BoxFit.cover,
                         )),
-                  )
+                  ),
+                  GestureDetector(
+                    onHorizontalDragStart: (details) {
+                      initX = details.globalPosition.dx;
+                    },
+                    onHorizontalDragUpdate: (details) {
+                      // print(details.globalPosition.dx);
+                      // initX ??= details.globalPosition.dx;
+                      // print("a "+ initX.toString() + "   "+(initX!-500).toString() +"   "+(initX!+500).toString() );
+                      // if(initX!=null &&initX! > details.globalPosition.dx!-1000){
+                      //   // print("left");
+                      //   if(controller.busPosition == 1.1){
+                      //     // print("chang bus");
+                      //     controller.changeToBus();
+                      //   }
+                      // }
+                      // if(initX!=null &&initX! < details.globalPosition.dx!+1000){
+                      //   // print("right from "+ initX.toString() + "to "+details.globalPosition.dx.toString());
+                      //   if(controller.carPosition == 1.1){
+                      //     // print("chang taxi");
+                      //     controller.changeToTaxi();
+                      //   }
+                      // }
+                      if (initX != null) {
+                        final currentPosition = details.globalPosition;
+                        if (currentPosition.dx - initX! > 20) {
+                          if(controller.carPosition == 1.1){
+                            controller.changeToTaxi();
+                          }
+                          initX = null;
+                        } else if (currentPosition.dx - initX! < -20) {
+                          if(controller.busPosition == 1.1){
+                            controller.changeToBus();
+                          }
+                          initX = null;
+                        }
+                      }
+                    },
+                    onHorizontalDragCancel: (){
+                      // initX=null;
+                    },   onHorizontalDragEnd: (details){
+                    initX=null;
+                  },
+                    child: Container(
+                      color: Colors.red.withOpacity(0.0),
+                      width: double.infinity,
+                    ),
+                  ),
                 ],
               ),
             )),

@@ -10,6 +10,7 @@ import 'package:gif/gif.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_curved_line/maps_curved_line.dart';
 import 'package:rakta_web/controller/home_controller.dart';
+import 'package:rakta_web/layout/home_page/home_page_screen.dart';
 
 import '../../const/const.dart';
 import '../../const/route.dart';
@@ -58,7 +59,7 @@ class _TaxiBookingScreenState extends State<TaxiBookingScreen> {
       },SetOptions(merge: true));
       FirebaseFirestore.instance.collection("Orders").doc("0").snapshots().listen((event) {
         if(event.data()==null){
-          Get.offAllNamed(Routes.home);
+          Get.offAll(()=>HomePageScreen());
         }
         if(event.data()!['status'] != Const.tripStatusSearchDriver){
           text ="Taxi Founded \n Driver will reach you soon";

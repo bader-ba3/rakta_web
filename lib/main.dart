@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:rakta_web/core/binding.dart';
 import 'package:rakta_web/layout/auth/auth.dart';
 import 'package:rakta_web/layout/home_page/home_page_screen.dart';
+import 'package:rakta_web/test.dart';
 import 'package:rakta_web/utils/hive.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'const/route.dart';
@@ -24,22 +25,35 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute:  Routes.home,
-      getPages: [
-        GetPage(
-          name: Routes.login,
-          page: () { return AuthScreen(); },
-        ),
-//          page: () { return BusTicket(model: BusTicketModel(status:true,from: "widget.from",to: "widget.to", seatNumber:[12,12,12] ),); },
-    GetPage(
-          name: Routes.home,
-          page: () { return HomePageScreen(); },
-        ),
-        GetPage(
-          name: Routes.checkLogin,
-          page: () { return CheckLogin(); },
-        ),
-      ],
+      initialRoute: Routes.home,
+      // getPages: [
+      //   GetPage(
+      //     name: Routes.login,
+      //     page: () {
+      //       return AuthScreen();
+      //     },
+      //   ),
+      //   GetPage(
+      //     name: Routes.home,
+      //     page: () {
+      //       return HomePageScreen();
+      //     },
+      //   ),
+      //   GetPage(
+      //     name: Routes.checkLogin,
+      //     page: () {
+      //       return CheckLogin();
+      //     },
+      //   ),
+      // ],
+      onGenerateRoute:(settings) {
+        print(settings);
+        if(settings.name!.contains("state=a")){
+          return GetPageRoute(page: () =>CheckLogin() ,);
+        }
+        return GetPageRoute(page: () =>HomePageScreen() ,);
+      },
+
       scrollBehavior: AppScrollBehavior(),
       initialBinding: GetBinding(),
       title: 'RAKTA',
@@ -51,10 +65,8 @@ class MyApp extends StatelessWidget {
 class AppScrollBehavior extends MaterialScrollBehavior {
   @override
   Set<PointerDeviceKind> get dragDevices => {
-    PointerDeviceKind.touch,
-    PointerDeviceKind.mouse,
-    PointerDeviceKind.trackpad,
-  };
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        PointerDeviceKind.trackpad,
+      };
 }
-
-

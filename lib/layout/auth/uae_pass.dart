@@ -14,8 +14,8 @@ class UAEPass extends StatefulWidget {
 
 class _UAEPassState extends State<UAEPass> with SingleTickerProviderStateMixin {
 String? data;
-// String redirectLink = "http://localhost:58176/#/";
-  String  redirectLink = "http://localhost:"+window.location.port+"/check-login";
+String redirectLink = "http://localhost:54668/rakta";
+//   String  redirectLink = "https://ba3.co/rakta";
 
 
   getData(code){
@@ -72,3 +72,8 @@ String? data;
     );
   }
 }
+//https://stg-ids.uaepass.ae/authenticationendpoint/login.do?
+// acr_values=urn%3Asafelayer%3Atws%3Apolicies%3Aauthentication%3Alevel%3Alow&
+// client_id=sandbox_stage&commonAuthCallerPath=%2Foauth2%2Fauthorize&forceAuth=false&passiveAuth=false
+// &redirect_uri=http%3A%2F%2Flocalhost%3A%2Fcheck-login&
+// response_type=code&scope=urn%3Auae%3Adigitalid%3Aprofile%3Ageneral+urn%3Auae%3Adigitalid%3Aprofile%3Ageneral%3AprofileType+urn%3Auae%3Adigitalid%3Aprofile%3Ageneral%3AunifiedId&state=a&tenantDomain=carbon.super&sessionDataKey=84396215-4d37-4982-b5ca-98009fbab6af&relyingParty=sandbox_stage&type=oauth2&sp=UAE+PASS+Staging+Sandbox&isSaaSApp=false&authenticators=BasicAuthenticator%3ALOCAL

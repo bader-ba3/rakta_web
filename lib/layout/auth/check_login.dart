@@ -21,7 +21,7 @@ class CheckLogin extends StatefulWidget {
 
 class _CheckLoginState extends State<CheckLogin> {
   String  redirectLink = "https://ba3.co/rakta";
-  // String redirectLink = "http://localhost:55869/rakta";
+  // String redirectLink = "http://localhost:62794/rakta";
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ String data ="";
     print(redirectLink);
     print(redirectLink);
     if(code!=null) {
-      http.post(Uri.parse("https://stg-id.uaepass.ae/idshub/token?grant_type=authorization_code&redirect_uri=${redirectLink}&code="+code!),headers: {
+      http.post(Uri.parse("https://corsproxy.io/?https://stg-id.uaepass.ae/idshub/token?grant_type=authorization_code&redirect_uri=${redirectLink}&code="+code!),headers: {
         "Authorization":"Basic c2FuZGJveF9zdGFnZTpzYW5kYm94X3N0YWdl",
         "Content-Type":"multipart/form-data",
         "Access-Control-Allow-Origin": "*",
@@ -49,7 +49,7 @@ String data ="";
         print(value.body);
         String access_token = json.decode( value.body)['access_token'];
 
-        http.get(Uri.parse("https://stg-id.uaepass.ae/idshub/userinfo"),headers: {
+        http.get(Uri.parse("https://corsproxy.io/?https://stg-id.uaepass.ae/idshub/userinfo"),headers: {
           "Authorization":"Bearer "+access_token
         }).then((value) async {
           var name = json.decode(value.body)['firstnameEN']+" "+json.decode(value.body)['lastnameEN'];
